@@ -4,7 +4,10 @@
   "description": "vue setting guide",
   "main": "src/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server --open --mode=development",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production"
   },
   "repository": {
     "type": "git",
@@ -22,16 +25,44 @@
   "homepage": "https://github.com/LeadJockey/vue-setting#readme",
   "prettier": {
     "printWidth": 150,
-    "semi": false,
     "tabWidth": 2,
     "bracketSpacing": true,
     "singleQuote": true,
+    "semi": false,
     "tabs": true,
     "[javascript]": {
       "editor.formatOnSave": true
     }
   },
   "dependencies": {
-    "node-sass": "^4.12.0"
+    "axios": "^0.18.0",
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.6",
+    "vuex": "^3.1.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.4",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^2.1.1",
+    "eslint": "^5.16.0",
+    "eslint-loader": "^2.1.2",
+    "file-loader": "^3.0.1",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.6.0",
+    "node-sass": "^4.12.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "terser-webpack-plugin": "^1.2.3",
+    "url-loader": "^1.1.2",
+    "vue-loader": "^15.7.0",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.31.0",
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "^3.3.1"
   }
 }
