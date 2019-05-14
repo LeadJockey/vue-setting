@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h2>vue app content</h2>
+    <h2>App content below</h2>
+    <hr>
     <router-view></router-view>
   </div>
 </template>

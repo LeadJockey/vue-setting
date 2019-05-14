@@ -11,7 +11,7 @@ module.exports = (env, argv) => ({
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/',
-    filename: 'build.js'
+    filename: 'build.[name].js'
   },
   devServer: {
     contentBase: './dist',
