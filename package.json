@@ -1,0 +1,37 @@
+{
+  "name": "vue-setting",
+  "version": "1.0.0",
+  "description": "vue setting guide",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeadJockey/vue-setting.git"
+  },
+  "keywords": [
+    "vue",
+    "setting"
+  ],
+  "author": "shawn.thecool",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LeadJockey/vue-setting/issues"
+  },
+  "homepage": "https://github.com/LeadJockey/vue-setting#readme",
+  "prettier": {
+    "printWidth": 150,
+    "semi": false,
+    "tabWidth": 2,
+    "bracketSpacing": true,
+    "singleQuote": true,
+    "tabs": true,
+    "[javascript]": {
+      "editor.formatOnSave": true
+    }
+  },
+  "dependencies": {
+    "node-sass": "^4.12.0"
+  }
+}
