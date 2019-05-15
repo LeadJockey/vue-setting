@@ -1,12 +1,17 @@
+import { getCountData } from '@/api/v1/counter'
+
 const state = {
   count: 0
 }
 const mutations = {
-  increment(state) {
-    state.count += 1
+  setCountAs(state, count) {
+    state.count = count
   },
-  decrement(state) {
-    state.count -= 1
+  increaseCountBy(state, count) {
+    state.count += count
+  },
+  decreaseCountBy(state, count) {
+    state.count -= count
   }
 }
 const getters = {
@@ -15,13 +20,8 @@ const getters = {
   }
 }
 const actions = {
-  increaseCount(context) {
-    console.log('context', context)
-    context.commit('increment')
-  },
-  decreaseCount(context) {
-    console.log('context', context)
-    context.commit('decrement')
+  setCount({ commit }) {
+    getCountData({ onSuccess: data => commit('setCountAs', data.count) })
   }
 }
 
