@@ -5,8 +5,9 @@ const instance = axios.create(AXIOS_INSTANT_CONFIG)
 
 const createRequest = (config, onSuccess, onError) => {
   instance({ ...config })
-    .then(res => successHandler(res, onSuccess))
+    
     .catch(err => errorHandelr(err, onError))
+    .then(res => successHandler(res, onSuccess))
 }
 
 const successHandler = (res, onSuccess) => {
