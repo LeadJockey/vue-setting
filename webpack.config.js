@@ -1,8 +1,8 @@
 const path = require('path')
+const Dotenv = require('dotenv-webpack')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const TerserPlugin = require('terser-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 module.exports = (env, argv) => ({
@@ -45,8 +45,25 @@ module.exports = (env, argv) => ({
         loader: 'url-loader'
       },
       {
-        test: /\.(s*)css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+        test: /\.css$/,
+        use: [{ loader: 'vue-style-loader' }, { loader: 'css-loader', options: { sourceMap: true } }]
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          { loader: 'vue-style-loader' },
+          { loader: 'css-loader', options: { sourceMap: true } },
+          { loader: 'sass-loader', options: { sourceMap: true } },
+          {
+            loader: 'sass-resources-loader',
+            options: {
+              sourceMap: true,
+              resources: [
+                path.resolve(__dirname, './src/assets/sass/variables.scss')
+              ]
+            }
+          }
+        ]
       },
       {
         test: /\.html$/,
@@ -65,9 +82,7 @@ module.exports = (env, argv) => ({
     minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin({})]
   },
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: 'style.css'
-    }),
+    new Dotenv(),
     new VueLoaderPlugin(),
     new HtmlWebPackPlugin({
       template: './src/assets/index.html',

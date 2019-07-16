@@ -1,22 +1,28 @@
 <template>
-  <div>
-    <div slot="header">
-      <div>header</div>
-    </div>
-    <div slot="main">
-      <router-view></router-view>
-    </div>
-    <div slot="footer">
-      <div>footer</div>
-    </div>
+  <div class="app">
+    <slot name="header">
+      <Header></Header>
+    </slot>
+    <slot name="main">
+      <Main></Main>
+    </slot>
+    <slot name="footer">
+      <Footer></Footer>
+    </slot>
   </div>
 </template>
 
 <script>
+import Header from '@/components/layouts/Header'
+import Main from '@/components/layouts/Main'
+import Footer from '@/components/layouts/Footer'
+
 export default {
   name: 'app',
-  mounted() {
-    console.log('app mounted')
+  components: {
+    Header,
+    Main,
+    Footer
   }
 }
 </script>
