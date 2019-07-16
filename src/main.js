@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 import store from '@/stores'
 import router from '@/routers'
-import App from '@/components/App'
+import App from '@/App'
 
 import '@/assets/sass/common.scss'
 
