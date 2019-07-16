@@ -28,11 +28,11 @@ export default {
     return {}
   },
   mounted() {
-    console.log('counter-mounted')
+    // console.log('counter-mounted')
     this.setCount();
   },
   destroyed() {
-    console.log('counter-destroyed')
+    // console.log('counter-destroyed')
   }
 }
 </script>

@@ -19,11 +19,11 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  console.table({
-    call: 'router.beforeEach',
-    to,
-    from
-  })
+  // console.table({
+  //   call: 'router.beforeEach',
+  //   to,
+  //   from
+  // })
   next()
 })
 

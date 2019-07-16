@@ -2,11 +2,12 @@
   <div>
     <ul class="list_item">
       <li
-        v-for="({i,v,c,x,y}, idx) in formatData"
-        :key="idx+Math.random()"
-        @click.prevent="onClick(x,y)"
+        v-for="({x,y,index,color,order}) in renderData"
+        :key="index+Math.random()"
+        @click.prevent="onClick(index)"
       >
-        <div class="bg" :style="{'background-color':c}">{{i}}:{{v}}|(x:{{x}}y:{{y}})</div>
+        <div class="bg" :style="`background-color:${color}`">{{x}}:{{y}}/{{index}}</div>
+        <div class="bg" :style="`color:red;background-color:${color}`">{{order}}</div>
       </li>
     </ul>
   </div>
@@ -14,66 +15,53 @@
 
 <script>
 import mapData from '@/constants/matrixMap'
-import { chunkIdx } from '@/utils/helper'
-
-const CHUNK_COUNT = 10
-const START_INDEX = 6
-const END_INDEX = 36
-const DEFAULT_BG = 'white'
-const BLOCK_BG = 'gray'
-const START_BG = 'red'
-const END_BG = 'blue'
-
+import { setInterval, clearInterval } from 'timers'
 export default {
   data() {
     return {
+      cnt: 1,
+      rowCnt: 10,
       data: mapData.moveLayer,
-      currentIdx: START_INDEX
+      renderData: [],
+      openList: [],
+      closeList: []
     }
   },
-  computed: {
-    chunkedData() {
-      return chunkIdx(this.data, CHUNK_COUNT)
-    },
-    formatData() {
-      return this.data.map((v, i) => {
-        let color = !!v ? DEFAULT_BG : BLOCK_BG
-        if (i === START_INDEX) {
-          color = START_BG
-        }
-        if (i === END_INDEX) {
-          color = END_BG
-        }
-        return {
-          i,
-          v,
-          x: i % CHUNK_COUNT,
-          y: i === 0 ? 0 : Math.floor(i / CHUNK_COUNT),
-          c: color
-        }
-      })
-    }
-  },
+  computed: {},
   mounted() {
-    console.log(this.formatData)
+    this.getRenderData()
+    this.search(6)
   },
   methods: {
-    onClick(x, y) {
-      this.search(x, y)
+    onClick(index) {},
+    getRenderData() {
+      this.renderData = this.data.map((m, i) => {
+        const x = i % this.rowCnt
+        const y = Math.floor((i + 1) / this.rowCnt)
+        return {
+          x: x,
+          y: y,
+          index: i,
+          value: m,
+          color: m ? 'white' : 'gray',
+          order: 0
+        }
+      })
     },
-    search(x, y) {
-      const n = this.chunkedData[y - 1] ? this.chunkedData[y - 1][x] : null
-      const s = this.chunkedData[y + 1] ? this.chunkedData[y + 1][x] : null
-      const w = this.chunkedData[y] ? this.chunkedData[y][x - 1] : null
-      const e = this.chunkedData[y] ? this.chunkedData[y][x + 1] : null
-      console.table({ n, s, w, e })
-      const result = [n, s, w, e]
-        .filter(item => !!item)
-        .map(idx => {
-          this.formatData[idx].c = 'gold'
-        })
-      console.table(result)
-      return result
+    getDirections(index, cnt) {
+      const n = this.renderData[index - this.rowCnt]
+      const s = this.renderData[index + this.rowCnt]
+      const w = this.renderData[index - 1]
+      const e = this.renderData[index + 1]
+      return [n, s, w, e].filter(direction => !!direction && !!direction.value)
+    },
+    search(startIndex) {
+      let list = this.getDirections(startIndex)
+      this.renderData[startIndex].order = this.cnt++
+      list.forEach(({ index }) => {
+        if (this.renderData[index].order !== 0) return
+        this.search(index)
+      })
     }
   }
 }
@@ -97,13 +85,13 @@ ol {
   float: left;
   width: 100px;
   height: 100px;
-  line-height: 100px;
+  line-height: 50px;
   text-align: center;
   border: 1px solid #efefef;
   box-sizing: border-box;
 }
 .list_item li .bg {
   width: 100%;
-  height: 100%;
+  height: 50%;
 }
 </style>

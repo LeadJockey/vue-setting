@@ -16,7 +16,7 @@ export default {
     Matrix
   },
   mounted() {
-    console.log('app mounted')
+    // console.log('app mounted')
   }
 }
 </script>
